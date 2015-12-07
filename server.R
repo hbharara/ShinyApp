@@ -1,7 +1,7 @@
 library(shiny)
 
 ## Creates an Empty Data Frame
-directory <- '/Datasets/'
+directory <- './Datasets/'
 files_list <- list.files(directory, full.names = TRUE) ## Creates a list of data frames
 
 adidas <- data.frame() 					               

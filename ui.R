@@ -1,6 +1,7 @@
 library(shiny)
 # Shiny App 
-# Version - Beta 2.0
+# Version - Beta 2.3
+# Last Update : 12/12/2015
 # Creator : hb2483,bjt2133,hy2456
 # Define UI for application that draws a histogram
 shinyUI(
@@ -25,33 +26,55 @@ sidebarLayout(
                  value = 95)
   ),
   
-  mainPanel(plotOutput("distPlot"),textOutput("text1"),textOutput("text2"))
+  mainPanel(plotOutput("distPlot"),textOutput("text1"),textOutput("text2"),textOutput("text3"),textOutput("text4"))
   
   )
 ),
 
 
-tabPanel("Regression Output",
-  sidebarLayout(
-    sidebarPanel(
-      helpText("Regression Output"),
+navbarMenu("Two Stocks",
+           tabPanel("Regression",
+   sidebarLayout(
+     sidebarPanel(
+       helpText("Regression Output"),
             selectInput("ind", 
             label = "Choose a Stock/Independent Variable",
             choices = c("ADS", "AAPL","FB", "GME","GOOG","LNVGY","NKE","SSNLF","TSLA","UA"),selected = "ADS"),
                           
             selectInput("dep", 
                         label = "Choose a Stock/Dependent Variable",
-                        choices = c("ADS", "AAPL","FB", "GME","GOOG","LNVGY","NKE","SSNLF","TSLA","UA"),selected = "GOOG")
+                        choices = c("ADS", "AAPL","FB", "GME","GOOG","LNVGY","NKE","SSNLF","TSLA","UA"),selected = "GOOG"),
                         
-                 ),
-   mainPanel(plotOutput("scatrPlot"),tableOutput("regStats"))
-                )
-         ),
-navbarMenu("More",
-           tabPanel("Residuals",
-                    plotOutput("resStats")),
-           tabPanel("Summary",
-                    textOutput("summaryStats"))
-     )
-  )
+      numericInput("popMean", 
+                   label = h3("Confidence Interval for Estimating Equality of Population Mean"), 
+                   value = 95)
+      
+                   ),
+    
+    
+   mainPanel(plotOutput("scatrPlot"),tableOutput("regStats"),textOutput("meanDifference"))
+                )),
+   
+   tabPanel("Residual",
+            plotOutput("resStats"))
+   
+   ),
+
+navbarMenu("Log Returns V/s Time",
+         tabPanel("Regression",  
+         sidebarLayout(
+           sidebarPanel(
+             helpText("Regression Output-Log Returns V/s Time"),
+             selectInput("LogReturns", 
+                         label = "Choose a Stock/Independent Variable",
+                         choices = c("ADS", "AAPL","FB", "GME","GOOG","LNVGY","NKE","SSNLF","TSLA","UA"),selected = "ADS")
+                        ),
+           mainPanel(plotOutput("LogPlot"),tableOutput("LogStats"))
+         )),
+         tabPanel("Log Returns-Residuals",
+                  plotOutput("logresStats"))
+         )
+    )
+
 )
+

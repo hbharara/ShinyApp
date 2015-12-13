@@ -1,9 +1,11 @@
 library(shiny)
 # Shiny App 
-# Version - Beta 2.3
-# Last Update : 12/12/2015
+# Version - Beta 2.1
 # Creator : hb2483,bjt2133,hy2456
-# Define UI for application that draws a histogram
+# Subject : SIEO4150 : Introduction to Probability and Statistics
+# Please Install Shiny Library on the local system and then run 'rungithub('/hbharara/ShinyApp')' from your local'
+
+
 shinyUI(
   navbarPage("Technology Stocks-Statistics",
              
@@ -56,7 +58,7 @@ navbarMenu("Two Stocks",
                 )),
    
    tabPanel("Residual",
-            plotOutput("resStats"))
+            plotOutput("resStats"),textOutput("TwoStockRsquared"))
    
    ),
 
@@ -72,7 +74,8 @@ navbarMenu("Log Returns V/s Time",
            mainPanel(plotOutput("LogPlot"),tableOutput("LogStats"))
          )),
          tabPanel("Log Returns-Residuals",
-                  plotOutput("logresStats"))
+                  plotOutput("logresStats"),
+                  textOutput("Rsquared"))
          )
     )
 

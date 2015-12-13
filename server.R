@@ -4,8 +4,8 @@ library(shiny)
 directory <- './Datasets/'
 files_list <- list.files(directory, full.names = TRUE) ## Creates a list of data frames
 
-##directory <- '/Users/HimanshuBharara/R/Publish/Datasets/'
-##files_list <- list.files(directory, full.names = TRUE) ## Creates a list of data frames
+#directory <- '/Users/HimanshuBharara/R/Publish/Datasets/'
+#files_list <- list.files(directory, full.names = TRUE) ## Creates a list of data frames
 
 
 adidas <- data.frame() 					               
@@ -176,7 +176,11 @@ shinyServer(function(input, output) {
            xlab=input$ind, ylab="Residuals", pch=19)
       abline(0, 0,col="blue")
       })
-   
+    output$TwoStockRsquared <- renderText({ 
+      lreg <- data.frame()
+      lreg<-lm(dep_var~ind_var)
+      print(paste("The Rsquared Statistics is: ",summary(lreg)$r.squared))
+    })
     })
     
 # Code Block to Plot Log Returns V/s Time
@@ -215,6 +219,13 @@ shinyServer(function(input, output) {
       plot(x_axis, res, main=paste("Scatterplot of Residuals"), 
            xlab=input$LogReturns, ylab="Residuals", pch=19)
       abline(0, 0,col="blue")
+    })
+    
+    output$Rsquared <- renderText({ 
+      logreg <- data.frame()
+      x_axis <- 1:251
+      logreg<-lm(log_var~x_axis)
+      print(paste("The Rsquared Statistics is: ",summary(logreg)$r.squared))
     })
     
         })
